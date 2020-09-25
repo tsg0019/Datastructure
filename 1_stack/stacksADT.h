@@ -8,12 +8,12 @@ typedef struct node {        //STACK_NODE had address of data and address of nex
 
 
 typedef struct stack    //STACK has number of stack count and address of stack top
-{
+{                          
     int count ;
     STACK_NODE* top ;
 } STACK;
 
-STACK* creatStack(void){
+STACK* createStack(void){
     STACK* stack;
 
     stack = (STACK*)malloc(sizeof(STACK));

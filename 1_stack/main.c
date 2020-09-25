@@ -1,12 +1,13 @@
 #include <stdio.h>
-#include "stacksADT.h"
+#include "stacksADT_myself.h"
+//#include "stacksADT.h"
 
 int main(){
     unsigned int num;
     int* digit;
     STACK* stack;
 
-    stack = creatStack();
+    stack = createStack();
     printf("Enter an integer :  ");
     scanf("%d",&num);
 
@@ -16,7 +17,7 @@ int main(){
         // printf("%d",*digit);
         pushStack(stack, digit);
         num = num / 2;
-        
+
     }
 
     printStack(stack);
