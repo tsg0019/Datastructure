@@ -67,7 +67,7 @@ bool emptyStack (STACK* stack){
 }
 bool fullStack (STACK* stack){
     STACK_NODE* temp;
-    if((temp = (STACK_NODE*)malloc(sizeof(stack->top)))){   //
+    if((temp = (STACK_NODE*)malloc(sizeof(stack->top)))){   //WHAT I WANT TO ASK
         free(temp);
         return true;
     }
@@ -75,6 +75,27 @@ bool fullStack (STACK* stack){
 }
 
 int stackCount(STACK* stack){
+    return stack->count;
+}
+STACK* destroyStack(STACK* stack){      //function what I made
+    STACK_NODE* temp;
+    while(stack->top){
+        temp = stack->top;
+        free(stack->top->data);
+        stack->top = stack->top->link;
+        stack->count --;
+        free(temp);
+    }
+    free(stack);
+    return NULL;
+}
+void printStack(STACK* stack){
+    while(stack->top){
+        printf("%d\n",*(int*)(stack->top->data));
+        stack->top = stack->top->link;
+    }
+}
+/*int stackCount(STACK* stack){
     return stack->count;
 }
 STACK* destroyStack(STACK* stack){
@@ -90,8 +111,8 @@ STACK* destroyStack(STACK* stack){
     }
     return NULL;
 }
-
-void printStack(STACK* stack) {
+*/
+/*void printStack(STACK* stack) {
     STACK_NODE* current = stack->top;
 
     while (current) {
@@ -99,4 +120,4 @@ void printStack(STACK* stack) {
         current = current->link; 
     }
     printf("\n");
-}
+}*/

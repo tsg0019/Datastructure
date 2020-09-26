@@ -22,13 +22,14 @@ int main(){
 
     printStack(stack);
 
-    printf("The binary number is : ");
+    /*printf("The binary number is : ");
     while(!emptyStack(stack)){      //executed until returned value becomes 1
         digit = (int*)popStack(stack);
         printf("%d",*digit);
     }
-    printf("\n");
+    printf("\n");*/
 
     destroyStack(stack);
+    
     return 0;
 }
