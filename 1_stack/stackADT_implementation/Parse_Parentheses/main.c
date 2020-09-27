@@ -28,7 +28,7 @@ int main(){
             pushStack(stack,dataptr);
         }else if (token == ')'){
             if(emptyStack(stack)){
-                printf("%s",openMiss);
+                printf("%s\nand the line number is %d\n",openMiss, lineCount);
                 destroyStack(stack);
                 return 1;
             }else{
@@ -37,7 +37,7 @@ int main(){
         }
     }
     if(!emptyStack(stack)){
-        printf("%s",closeMiss);
+        printf("%s\n",closeMiss);       //hard to find where the closemiss problem occured
         destroyStack(stack);
         return 1;
     }
