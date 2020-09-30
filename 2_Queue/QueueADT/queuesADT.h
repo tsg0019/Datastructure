@@ -103,3 +103,13 @@ bool fullQueue(QUEUE* queue){
     }
     return false;
 }
+void printQueue(QUEUE* queue){
+    if(queue->count == 0){
+        printf("No Queue_Node there");
+    }
+    while((queue->count) > 0){
+        printf("%d  ",*(int*)(queue->front->dataptr));
+        queue->front = queue->front->next;
+        (queue->count)--;
+    }
+}
