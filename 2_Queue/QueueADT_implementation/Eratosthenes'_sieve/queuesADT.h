@@ -63,7 +63,7 @@ bool dequeue(QUEUE* queue, void** itemptr){
         if(queue->count == 1){
             queue->front = queue->rear = NULL;
         }else{
-        queue->front = queue->front->next;
+            queue->front = queue->front->next;
         }
         (queue->count)--;
         free(node_to_delete);
@@ -102,4 +102,15 @@ bool fullQueue(QUEUE* queue){
         return true;
     }
     return false;
+}
+void printQueue(QUEUE* queue){
+    if(queue->count == 0){
+        printf("No Queue_Node there\n");
+    }
+    while((queue->count) > 0){
+        printf("%d  ",*(int*)(queue->front->dataptr));
+        queue->front = queue->front->next;
+        (queue->count)--;
+    }
+    printf("\n");
 }
