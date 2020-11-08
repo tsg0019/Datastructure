@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
 typedef struct node{
     void* dataptr;
@@ -22,7 +25,7 @@ int listCount (LIST* pList);
 bool emptyList(LIST* pList);
 bool fullList(LIST* pList);
 
-static int _insert(LIST* pList, NODE* pPre, void* dataInPtr);
+static bool _insert(LIST* pList, NODE* pPre, void* dataInPtr);
 static void _delete(LIST* pList, NODE* pPre, NODE* pLoc, void** dataOutPtr);
 static bool _search(LIST* pList, NODE** pPre, NODE** pLoc, void* pArgu);
 
@@ -37,6 +40,21 @@ LIST* createList (int (*compare)(void* argu1, void* argu2)){
         list->compare = compare;
     }
     return list;
+}
+int addNode(LIST* pList, void* dataInPtr){
+    bool found;
+    bool success;
+    NODE* pPre;
+    NODE* pLoc;
+    found = _search(pList, &pPre,&pLoc, dataInPtr);
+    if(found){
+        return +1;
+    }
+    success = _insert(pList,pPre, dataInPtr);
+    if(!success){
+        return-1;
+    }
+    return 0;
 }
 static bool _insert(LIST* pList, NODE* pPre, void* dataInPtr){
     NODE* pNew;
@@ -74,7 +92,7 @@ bool removeNode(LIST* pList, void* keyPtr, void** dataOutPtr){
     }
     return found;
 }
-void _delete(LIST* pList, NODE* pPre, NODE* pLoc, void** dataOutPtr){
+static void _delete(LIST* pList, NODE* pPre, NODE* pLoc, void** dataOutPtr){
     *dataOutPtr = pLoc->dataptr;
     if(pPre == NULL){
         pList->head = pLoc->link;
@@ -104,9 +122,9 @@ bool searchList(LIST* pList, void* pArgu, void** pDataOut){
     }
     return found;
 }
-bool _search(LIST* pList, NODE** pPre, NODE** pLoc, void* pArgu){
-    #define COMPARE ( ((* pList->compare) (pArgu, (*pLoc)->dataPtr)) )
-    #define COMPARE_LAST  ((* pList->compare) (pArgu, pList->rear->dataPtr))
+static bool _search(LIST* pList, NODE** pPre, NODE** pLoc, void* pArgu){
+    #define COMPARE ( ((* pList->compare) (pArgu, (*pLoc)->dataptr)) )
+    #define COMPARE_LAST  ((* pList->compare) (pArgu, pList->rear->dataptr))
     int result;
     *pPre = NULL;
     *pLoc = pList->head;
@@ -129,7 +147,7 @@ bool _search(LIST* pList, NODE** pPre, NODE** pLoc, void* pArgu){
         return false;
     }
 }
-static bool retrieveNode(LIST* pList, void* pArgu, void** dataOutPtr){
+bool retrieveNode(LIST* pList, void* pArgu, void** dataOutPtr){
     bool found;
     NODE* pPre;
     NODE* pLoc;
@@ -159,7 +177,7 @@ bool traverse(LIST* pList, int fromWhere, void**dataPtrOut){
     if(pList->count == 0){
         return false;
     }
-    if(fromwhere == 0){
+    if(fromWhere == 0){
         pList->pos = pList->head;
         *dataPtrOut = pList->pos->dataptr;
         return true;
