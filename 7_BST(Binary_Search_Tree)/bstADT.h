@@ -94,9 +94,11 @@ static NODE* _delete(BST_TREE* tree, NODE* root, void* dataPtr, bool* success){
     }
     if(tree->compare(dataPtr, root->dataPtr) < 0){
         root->left = _delete(tree, root->left,dataPtr,success);
-    }else if(tree->compare(dataPtr, root->dataPtr) > 0){
+    }
+    else if(tree->compare(dataPtr, root->dataPtr) > 0){
         root->right = _delete(tree, root->right, dataPtr, success);
-    }else{
+    }
+    else{
         dltPtr = root;
         if(!root->left){
             free(root->dataPtr);
@@ -104,9 +106,16 @@ static NODE* _delete(BST_TREE* tree, NODE* root, void* dataPtr, bool* success){
             free(dltPtr);
             *success = true;
             return newRoot;
-        }else{
+        }
+        else if(!root->right){
+            newRoot = root->left;
+            free(dltPtr);
+            *success = true;
+            return newRoot;
+        }
+        else{
             exchPtr = root->left;
-            while(exchPtr){
+            while(exchPtr->right){
                 exchPtr = exchPtr->right;
             }
             holdPtr = root->dataPtr;
