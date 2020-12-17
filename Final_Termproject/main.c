@@ -43,8 +43,8 @@ int main(void) {
 	}//이 후 전체 일 수에 대한 simulation의 결과 print
 	printf("\n\n===================%d일간의 simulation 결과===================\n", *days_to_simulation);
 	printf("simulation 일 수 : %d\n근무자 수 : %d\n", *days_to_simulation,*numb_of_workers);
-	printf("평균 응대시간 : %f\n", (double)S / *days_to_simulation);
-	printf("평균 휴식시간 : %f\n",(double)W / *days_to_simulation);
+	printf("average service time : %f\n", (double)S / *days_to_simulation);
+	printf("average rest time : %f\n",(double)W / *days_to_simulation);
 	printf("응대하지 못한 평균 손님 수 : %f\n", (double)*left_cust / *days_to_simulation);
 	printf("=============================================================\n");
 	return 0;
@@ -80,8 +80,8 @@ void one_day_simulation(QUEUE* queue, int* currenttime, int* custNum, simStats* 
 	}
 	printf("\n<%d분동안의 응대 분석 결과 보고>", *currenttime);
 	printf("\n마지막 queue의 count : %d", queue->count);
-	printf("\n총 고객 수 : %d\n총 응대시간 : %d", N - *temp_customer_num, S - *temp_customer_svctime);
-	printf("\n총 휴식시간 : %d \n", W - *temp_customer_waittime);
+	printf("\n총 고객 수 : %d\ntotal sevice time: %d", N - *temp_customer_num, S - *temp_customer_svctime);
+	printf("\ntotal rest time : %d \n", W - *temp_customer_waittime);
 	*temp_customer_num = N;//각각의 변수의 값 최신화
 	*temp_customer_svctime = S;//최신화를 해야만 그 다음 날짜의 data를 구할 수 있음
 	*temp_customer_waittime = W;
